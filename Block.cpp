@@ -1,22 +1,36 @@
 #include <ctime>
 #include <iostream>
+#include <string>
+#include "sha256.h"
 using namespace std;
+using std::string;
+using std::cout;
+using std::endl;
 
 //Block
 class Block {
-  // Access specifier
   public:
 
-  //instance variables
-  public String hash;
-  public String previousHash;
-  private String data;
-  private long timeStamp;
+    //constructor
+    Block(string _data, string _previousHash) {
+      data = _data;
+      previousHash = _previousHash;
+      timeStamp = time(NULL);
+      hash = calculateHash();
+    }
 
-  Block(String _data, String _previousHash) {
-    data = _data;
-    previousHash = _previousHash;
-    timeStamp = time(NULL);
-  }
+    //public variables
+    string hash;
+    string previousHash;
 
-}
+    //public methods
+    string calculateHash() {
+      std::string timeStamp_string = std::to_string(timeStamp);
+      string calculatedhash = sha256(previousHash + timeStamp_string + data);
+      return calculatedhash;
+    }
+  //private variables
+  private:
+    string data;
+    long timeStamp;
+};
