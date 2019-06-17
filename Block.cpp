@@ -1,6 +1,7 @@
+//g++ sha256.cpp BlockChain.cpp -o sha256_example && ./sha256_example
 #include <ctime>
-#include <iostream>
 #include <string>
+#include <iostream>
 #include "sha256.h"
 using namespace std;
 using std::string;
@@ -26,7 +27,8 @@ class Block {
     //public methods
     string calculateHash() {
       std::string timeStamp_string = std::to_string(timeStamp);
-      string calculatedhash = sha256(previousHash + timeStamp_string + data);
+      string input = previousHash + timeStamp_string + data;
+      string calculatedhash = sha256(input);
       return calculatedhash;
     }
   //private variables
