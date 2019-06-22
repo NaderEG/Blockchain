@@ -10,10 +10,14 @@ using std::vector;
 
 class BlockChain {
   public:
-    static std::vector<Block*> blockchain;
+    BlockChain() {
+      blockchain = {};
+    }
+    vector<Block*> blockchain;
+
 };
 int main() {
-  BlockChain * bc;
+  BlockChain * bc = new BlockChain();
   bc->blockchain.push_back(new Block("Hi im the first block", "0"));
   bc->blockchain.push_back(new Block("Hi im the second block", bc->blockchain.at(bc->blockchain.size()-1)->hash));
   bc->blockchain.push_back(new Block("Hi im the third block block", bc->blockchain.at(bc->blockchain.size()-1)->hash));
