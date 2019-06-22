@@ -13,12 +13,33 @@ class BlockChain {
     BlockChain() {
       blockchain = {};
     }
+
     string toString() {
       string toPrint = "";
       for(Block * b : blockchain) {
          toPrint = toPrint + b->toString();
       }
       return toPrint;
+    }
+
+    bool isChainValid() {
+      Block * currentBlock;
+      Block * previousBlock;
+
+      for(int i = 1; i<blockchain.size(); i++) {
+        currentBlock = blockchain.at(i);
+        previousBlock = blockchain.at(i-1);
+
+        if(!(currentBlock->hash == currentBlock->calculateHash())) {
+          std::cout <<"Current Hashes not equal";
+          return false;
+        }
+        if(!(previousBlock->hash == currentBlock->previousHash)) {
+          std::cout <<"Previous Hash not equal";
+          return false;
+        }
+      }
+      return true;
     }
 
     vector<Block*> blockchain;
