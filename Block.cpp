@@ -31,6 +31,15 @@ class Block {
       string calculatedhash = sha256(input);
       return calculatedhash;
     }
+
+    string toString() {
+      std::string timeStamp_string = std::to_string(timeStamp);
+      return std::string("{") + "\n\t" + "\"hash\": " +hash+
+      "\n\t" + "\"previousHash\": " +previousHash+
+      "\n\t" + "\"data\": "+data+
+      "\n\t" + "\"timeStamp\": "+timeStamp_string+
+      "\n}\n";
+    }
   //private variables
   private:
     string data;
