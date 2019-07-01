@@ -27,9 +27,26 @@ class Block {
     //public methods
     string calculateHash() {
       std::string timeStamp_string = std::to_string(timeStamp);
-      string input = previousHash + timeStamp_string + data;
+      std::string nonce_string = std::to_string(nonce);
+      string input = previousHash + timeStamp_string +nonce_string+ data;
       string calculatedhash = sha256(input);
       return calculatedhash;
+    }
+
+    void mineBlock(int difficulty) {
+      //cout<<"test 1";
+      std::string target = "";
+
+      for(int i = 0; i<difficulty; i++) {
+        target = target+"0";
+      }
+
+      while(hash.substr(0, difficulty) != target) {
+        nonce++;
+        hash = calculateHash();
+      }
+
+      std::cout <<"Block Mined: " + hash;
     }
 
     string toString() {
@@ -44,4 +61,5 @@ class Block {
   private:
     string data;
     long timeStamp;
+    int nonce = 0;
 };
