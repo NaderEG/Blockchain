@@ -19,4 +19,10 @@ class Keys {
     Keys() {
       setMap();
     }
+    string getPrivateKey(int client) {
+      return std::to_string(client);
+    }
+    string getPublicKey(string priv) {
+      return keyPairs.at(priv);
+    }
 }

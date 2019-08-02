@@ -10,7 +10,7 @@ class Transaction {
     string sender;
     string reciepient;
     float value;
-    String signature;
+    string signature;
 
     vector<TransactionInput*> inputs;
     vector<TransactionOutput*> outputs;
@@ -24,9 +24,8 @@ class Transaction {
     }
 
   private:
-    static int sequence = 0;
 
-    String calculateHash() {
+    string calculateHash() {
       sequence++;
       return sha256(sender+reciepient+std::to_string(value)+std::to_string(sequence));
     }
