@@ -11,6 +11,6 @@ class Keys {
       return std::to_string(client);
     }
     string getPrivateKey(string pub) {
-      return sha256(std::to_string(client)+"secret code");
+      return sha256(pub+"secret code");
     }
-}
+};

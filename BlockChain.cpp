@@ -1,7 +1,11 @@
 #include "Block.cpp"
+#include "Wallet.cpp"
+#include "Transaction.cpp"
+#include "TransactionOutput.cpp"
 #include <iostream>
 #include <string>
 #include <vector>
+#include <unordered_map>
 using std::string;
 using std::cout;
 using std::endl;
@@ -10,7 +14,10 @@ using std::vector;
 
 class BlockChain {
   public:
+
+    vector<Block*> blockchain;
     int difficulty = 5; //can be changed to whatever, 5 is good for testing
+    unordered_map<string, TransactionOutput> UTXOs;
     BlockChain() {
       blockchain = {};
     }
@@ -42,29 +49,18 @@ class BlockChain {
       }
       return true;
     }
-
-    vector<Block*> blockchain;
-
 };
 int main() {
-
-  BlockChain * bc = new BlockChain();
-  bc->blockchain.push_back(new Block("Hi im the first block", "0"));
-  std::cout << "Trying to mine block 1...\n";
-  bc->blockchain.at(0)->mineBlock(bc->difficulty);
-
-  bc->blockchain.push_back(new Block("Hi im the second block", bc->blockchain.at(bc->blockchain.size()-1)->hash));
-  std::cout << "Trying to mine block 2...\n";
-  bc->blockchain.at(1)->mineBlock(bc->difficulty);
-
-  bc->blockchain.push_back(new Block("Hi im the third block", bc->blockchain.at(bc->blockchain.size()-1)->hash));
-  std::cout << "Trying to mine block 3...\n";
-  bc->blockchain.at(2)->mineBlock(bc->difficulty);
-
-  std::cout << "\nBlockChain is valid:" << bc->isChainValid() <<"\n";
-
-  std::cout<< bc->toString();
-
+  Wallet * walletA = new Wallet();
+  Wallet * walletB = new Wallet();
+  vector<TransactionInput*> in = {};
+  cout << "Private Key: " << walletA->privateKey <<"\n";
+  cout << "Public Key: " << walletA->publicKey <<"\n";
+  cout << "Private Key: " << walletB->privateKey <<"\n";
+  cout << "Public Key: " << walletB->publicKey <<"\n";
+  Transaction * t = new Transaction(walletA->publicKey, walletB->publicKey, 5, in);
+  t->generateSignature(walletA->privateKey);
+  cout<< t->verifySignature() <<"\n";
 
   return 0;
 }
