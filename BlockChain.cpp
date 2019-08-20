@@ -15,11 +15,11 @@ using std::vector;
 class BlockChain {
   public:
 
-    vector<Block*> blockchain;
+    static vector<Block*> blockchain;
     int difficulty = 5; //can be changed to whatever, 5 is good for testing
     unordered_map<string, TransactionOutput> UTXOs;
     BlockChain() {
-      blockchain = {};
+    
     }
 
     string toString() {
@@ -50,6 +50,7 @@ class BlockChain {
       return true;
     }
 };
+vector<Block*> BlockChain::blockchain = {};
 int main() {
   Wallet * walletA = new Wallet();
   Wallet * walletB = new Wallet();
